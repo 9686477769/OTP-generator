@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url("otpimg.jpeg");
+            background-size: cover;
+            /* background-repeat: no-repeat; */
+            /* transition: transform 0.35ms; */
+            /* transition: transform 200ms; */
+             }
+       
+        #otp-display {
+            font-size: 24px;
+            margin: 20px;
+            color: gold;
+            
+        }
+        #otp-input {
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 20px;  
+           background: linear-gradient(to left,grey, gold);
+           box-shadow: 4px 4px 4px gold;
+           border: 2px solid gold;
+        }
+        #otp-input:hover{
+            background: linear-gradient(to right,grey, gold);
+
+        }
+        h1{
+            color: gold;
+        }
+        p{
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+    <h1>OTP Generator</h1>
+    <p>Here is your OTP: <span id="otp-display">----</span></p>
+    <input type="text" id="otp-input" placeholder="Enter OTP">
+    <button id="verify-button">Verify</button>
+
+    <p id="result"></p>
+
+    <script>
+        function generateOTP() {
+            const otp = Math.floor(1000 + Math.random() * 9000);
+            return otp;
+        }
+
+        function updateOTPDisplay() {
+            const otpDisplay = document.getElementById("otp-display");
+            const otp = generateOTP();
+            otpDisplay.innerText = otp;
+            return otp;
+        }
+
+        document.getElementById("verify-button").addEventListener("click", function () {
+            const otpDisplay = document.getElementById("otp-display");
+            const otpInput = document.getElementById("otp-input");
+            const result = document.getElementById("result");
+
+            const generatedOTP = otpDisplay.innerText;
+            const enteredOTP = otpInput.value;
+
+            otpInput.value="";//to clear the otp
+            
+            if (generatedOTP === enteredOTP) {
+                result.innerText = "OTP Registered!";
+            } else {
+                result.innerText = "OTP Rejected!";
+            }
+        });
+
+        // Initial OTP generation
+        updateOTPDisplay();
+
+        // Automatically generate a new OTP every 5 seconds
+        setInterval(updateOTPDisplay, 7000);
+    </script>
+</body>
+</html>
+    
